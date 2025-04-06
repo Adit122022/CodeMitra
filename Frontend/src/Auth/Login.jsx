@@ -1,24 +1,22 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Signup = () => {
+const Login = () => {
   const navigate = useNavigate();
-  const [name, setname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleSignup = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!name || !email || !password) {
-      return setError('All fields are required');
+    if (!email || !password) {
+      return setError('Please enter both email and password');
     }
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/signup', {
-        name,
+      const res = await axios.post('http://localhost:5000/api/auth/login', {
         email,
         password,
       });
@@ -30,14 +28,14 @@ const Signup = () => {
       navigate('/');
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || 'Signup failed');
+      setError(err.response?.data?.message || 'Login failed');
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Sign up for StackWave</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">Log in to StackWave</h2>
 
         {error && (
           <div className="bg-red-100 text-red-700 px-4 py-2 rounded mb-4 text-sm">
@@ -45,15 +43,7 @@ const Signup = () => {
           </div>
         )}
 
-        <form onSubmit={handleSignup} className="space-y-4">
-          <input
-            type="text"
-            placeholder="name"
-            className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={name}
-            onChange={(e) => setname(e.target.value)}
-          />
-
+        <form onSubmit={handleLogin} className="space-y-4">
           <input
             type="email"
             placeholder="Email"
@@ -74,19 +64,19 @@ const Signup = () => {
             type="submit"
             className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition"
           >
-            Sign Up
+            Log In
           </button>
         </form>
 
         <p className="text-sm mt-4 text-center">
-          Already have an account?{' '}
-          <a href="/login" className="text-blue-600 hover:underline">
-            Log in here
-          </a>
+          Don’t have an account?{' '}
+          <Link to="/" className="text-blue-600 hover:underline">
+            Sign up here
+          </Link>
         </p>
       </div>
     </div>
   );
 };
 
-export default Signup;
+export default Login;
