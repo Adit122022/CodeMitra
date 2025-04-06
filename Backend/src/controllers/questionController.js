@@ -31,15 +31,26 @@ module.exports.getAllQuestion =  async (req, res) => {
     }
 }
 
-module.exports.getOneQuestion =  async (req, res) => {
+module.exports.getOneQuestion = async (req, res) => {
     try {
-        const question = await questionModel.findById(req.params.id).populate('authorId', 'name');
+        const question = await questionModel.findById(req.params.id)
+            .populate('authorId', 'name')
+            .populate({
+                path: 'answers',
+                populate: {
+                    path: 'authorId',
+                    select: 'name'
+                }
+            });
+
         if (!question) return res.status(404).json({ message: 'Question not found' });
+
         res.json(question);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 }
+
 module.exports.Update = async (req, res) => {
     try {
         const { title, body, tags } = req.body;
