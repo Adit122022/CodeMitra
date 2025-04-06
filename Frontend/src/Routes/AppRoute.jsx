@@ -5,6 +5,7 @@ import QuestionDetail from '../components/Question/QuestionDetails';
 import AskQuestion from '../components/Pages/AskQuestion';
 import Login from '../Auth/Login';
 import Home from '../components/Pages/Home';
+import Profile from '../components/Pages/Profile';
 
 const AppRoute = () => {
   const isLoggedIn = localStorage.getItem('token');
@@ -13,6 +14,7 @@ const AppRoute = () => {
   <Routes>
     <Route path='/' element={<Signup/>}/>
     <Route path="/login" element={<Login />} />
+    <Route path="/profile" element={<Profile />} />
     <Route path="/home" element={<Home />} />
     <Route path="/questions/:id" element={<QuestionDetail />} />
     <Route path="/ask" element={isLoggedIn ? <AskQuestion /> : <Navigate to="/login" />} />
