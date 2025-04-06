@@ -2,9 +2,9 @@
 
 const authorizeRoles = (...roles) => {
     return async(req, res, next) => {
-        console.log('User :', req.user);
-        console.log('User role:', req.user.role);
-        console.log('Required roles:', roles);
+        // console.log('User :', req.user);
+        // console.log('User role:', req.user.role);
+        // console.log('Required roles:', roles);
         
         if (!req.user || !req.user.role) {
             return res.status(403).json({ message: 'Access Denied - No role found' });

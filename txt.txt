@@ -46,8 +46,8 @@ GET    /api/questions/:id      - Get one question
 PUT    /api/questions/:id      - Update question
 DELETE /api/questions/:id      - Delete question
 
-POST   /api/answers/:questionId        - Add answer
-PUT    /api/answers/:answerId          - Edit answer
+POST   /api/answers/:questionId        - Add answer✅
+PUT    /api/answers/:answerId          - Edit answer✅
 DELETE /api/answers/:answerId          - Delete answer
 POST   /api/answers/:answerId/vote     - Vote up/down
 ```

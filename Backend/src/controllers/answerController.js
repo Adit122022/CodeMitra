@@ -18,3 +18,32 @@ module.exports.createAnswer  = async(req,res)=>{
     }
 
 }
+
+
+module.exports.UpdateAnswer = async (req, res) => {
+    try {
+        const {  body, } = req.body;
+        const answerId = req.params.id;
+
+        // Find question
+        const answer = await answerModel.findById(answerId);
+        if (!answer) {
+            return res.status(404).json({ message: 'NOt Updated successfully' });
+        }
+
+        // Check if logged-in user is the author
+        if (answer.authorId.toString() !== req.user.id) {
+            return res.status(403).json({ message: 'You can only update your own question' });
+        }
+
+        // Update answer fields
+    
+        answer.body = body || answer.body;
+
+        await answer.save();
+        res.json({ message: 'Question updated successfully', answer });
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};

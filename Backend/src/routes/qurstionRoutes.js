@@ -3,11 +3,11 @@ const router = express.Router();
 const { protect } = require('../middlewares/authMiddleware');
 
 const {  Create, getAllQuestion, getOneQuestion, Delete, Update } = require('../controllers/questionController');
-// ✅ Create a question
+// ✅ Create  questions
 router.post('/', protect, Create);
 // ✅ Get all questions
 router.get('/',getAllQuestion);
-// ✅ Get a single question
+// ✅ Get 1 question
 router.get('/:id',getOneQuestion);
 // ✅ Update a question (Only Author can update)
 router.patch('/update/:id', protect, Update);
