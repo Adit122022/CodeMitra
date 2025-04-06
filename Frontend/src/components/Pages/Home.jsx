@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import Navbar from '../../Others/Navbar';
 
 const Home = () => {
   const [questions, setQuestions] = useState([]);
@@ -12,8 +13,11 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-4">
+    <div className="">
+    <div className='w-screen h-16 bg-white shadow-md'>
+    <Navbar/>
+    </div>
+      <div className="flex justify-between items-center mb-4 p-6">
         <h1 className="text-2xl font-bold">All Questions</h1>
         <Link
           to="/ask"
