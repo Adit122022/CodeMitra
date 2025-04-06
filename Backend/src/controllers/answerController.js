@@ -1,49 +1,106 @@
-const { answerModel } = require("../models/answerModel");
-const questionModel = require("../models/questionModel");
+const answerModel = require('../models/answerModel');
+const questionModel = require('../models/questionModel');
+
+exports.addAnswer = async (req, res) => {
+  try {
+    const { questionId } = req.params;
+    const { content } = req.body;
+
+    const answer = await answerModel.create({
+      questionId,
+      content,
+      authorId: req.user._id,
+    });
+    await questionModel.findByIdAndUpdate(
+        questionId,
+        { $push: { answers: answer._id } },
+        { new: true }
+      );
+ 
+    res.status(201).json(answer);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.updateAnswer = async (req, res) => {
+  try {
+    const { answerId } = req.params;
+    const { content } = req.body;
+
+    const answer = await answerModel.findById(answerId);
+    if (!answer) return res.status(404).json({ message: 'Answer not found' });
+
+    if (!answer.authorId.equals(req.user._id))
+      return res.status(403).json({ message: 'Unauthorized' });
+
+    answer.content = content;
+    await answer.save();
+    res.status(200).json(answer);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.deleteAnswer = async (req, res) => {
+  try {
+    const { answerId } = req.params;
+
+    const answer = await answerModel.findById(answerId);
+    if (!answer) return res.status(404).json({ message: 'Answer not found' });
+
+    if (!answer.authorId.equals(req.user._id))
+      return res.status(403).json({ message: 'Unauthorized' });
+
+    await answer.deleteOne();
+    res.status(200).json({ message: 'Answer deleted' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.voteAnswer = async (req, res) => {
+  try {
+    const { answerId } = req.params;
+    const { voteType } = req.body; // "up" or "down"
+
+    const answer = await answerModel.findById(answerId);
+    if (!answer) return res.status(404).json({ message: 'Answer not found' });
+
+    answer.votes += voteType === 'up' ? 1 : -1;
+    await answer.save();
+
+    res.status(200).json(answer);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 
-module.exports.createAnswer  = async(req,res)=>{
-    try{
-         const{body} = req.body;
-         const { questionId } = req.params;
-         if(!body) return res.status(400).json({message:'Answer body is required'})
-        const question = await questionModel.findById(questionId);
-        if(!question) return res.status(404).json({message:'Question not found'})
-        const answer = await answerModel.create({body, questionId , authorId : req.user.id});
-     res.status(200).json({message:'Answer created successfully', answer})
+exports.upvoteAnswer = async function (req, res) {
+  try {
+    const answer = await answerModel.findById(req.params.id);
+    if (!answer) return res.status(404).json({ message: 'Answer not found' });
 
+    answer.votes = (answer.votes || 0) + 1;
+    await answer.save();
 
-    }catch(err){
-        res.status(400).json({message:err.message})
-    }
+    res.json({ message: 'Upvoted', votes: answer.votes });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
-}
+exports.downvoteAnswer = async function (req, res) {
+  try {
+    const answer = await answerModel.findById(req.params.id);
+    if (!answer) return res.status(404).json({ message: 'Answer not found' });
 
+    answer.votes = (answer.votes || 0) - 1;
+    await answer.save();
 
-module.exports.UpdateAnswer = async (req, res) => {
-    try {
-        const {  body, } = req.body;
-        const answerId = req.params.id;
-
-        // Find question
-        const answer = await answerModel.findById(answerId);
-        if (!answer) {
-            return res.status(404).json({ message: 'NOt Updated successfully' });
-        }
-
-        // Check if logged-in user is the author
-        if (answer.authorId.toString() !== req.user.id) {
-            return res.status(403).json({ message: 'You can only update your own question' });
-        }
-
-        // Update answer fields
-    
-        answer.body = body || answer.body;
-
-        await answer.save();
-        res.json({ message: 'Question updated successfully', answer });
-
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+    res.json({ message: 'Downvoted', votes: answer.votes });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };

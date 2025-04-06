@@ -7,7 +7,7 @@ const generateToken = (id , role) => {
 };
 
 // User Signup
-const signup = async (req, res) => {
+module.exports.signup = async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
@@ -30,7 +30,7 @@ const signup = async (req, res) => {
 };
 
 // User Login
-const login = async (req, res) => {
+module.exports.login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
@@ -53,7 +53,7 @@ const login = async (req, res) => {
 };
 
 // Get Logged-In User
-const getMe = async (req, res) => {
+module.exports.getMe = async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password');
         res.status(200).json(user);
@@ -62,4 +62,3 @@ const getMe = async (req, res) => {
     }
 };
 
-module.exports = { signup, login, getMe };
