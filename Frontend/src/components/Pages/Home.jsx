@@ -31,7 +31,7 @@ const Home = () => {
             className="block p-4 bg-white shadow rounded hover:bg-gray-50"
           >
             <h3 className="text-lg font-semibold">{q.title}</h3>
-            <p className="text-sm text-gray-500">{q.body.substring(0, 100)}...</p>
+            <p className="text-sm text-gray-500">{q.body}...</p>
           </Link>
         ))}
       </div>

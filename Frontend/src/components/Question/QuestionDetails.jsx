@@ -8,6 +8,8 @@ const QuestionDetail = () => {
   const [newAnswer, setNewAnswer] = useState('');
   const [loading, setLoading] = useState(false);
 
+//    console.log(question)
+
   const fetchQuestion = async () => {
     try {
       const res = await axios.get(`http://localhost:5000/api/questions/${id}`);
@@ -45,7 +47,7 @@ const QuestionDetail = () => {
       setLoading(false);
     }
   };
-
+console.log(question)
   const vote = async (answerId, type) => {
     try {
       const res = await axios.post(
@@ -72,34 +74,31 @@ const QuestionDetail = () => {
       <p className="text-gray-600">{question.body}</p>
 
       <h2 className="mt-6 text-xl font-semibold">Answers</h2>
-      {question.answers.length > 0 ? (
-        question.answers.map((ans) => (
-          <div key={ans._id} className="border p-3 my-2 rounded bg-white">
-           <p>{ans.content}</p>
-<div className="flex items-center gap-3 mt-2">
-  <button
-    onClick={() => vote(ans._id, 'upvote')}
-    className="px-2 py-1 bg-green-600 text-white rounded"
-  >
-    Upvote
-  </button>
-  <span className="text-sm">{ans.votes || 0} votes</span>
-  <button
-    onClick={() => vote(ans._id, 'downvote')}
-    className="px-2 py-1 bg-red-600 text-white rounded"
-  >
-    Downvote
-  </button>
-</div>
+      {question.answers.map((ans) => (
+  <div key={ans._id} className="border p-3 my-2 rounded bg-white">
+    <p>{ans.content}</p>
 
-            <span className="text-sm text-gray-500">
-              by {ans.authorId?.username || 'Anonymous'}
-            </span>
-          </div>
-        ))
-      ) : (
-        <p>No answers yet. Be the first to answer!</p>
-      )}
+    <div className="flex items-center gap-3 mt-2">
+      <button
+        onClick={() => vote(ans._id, 'upvote')}
+        className="px-2 py-1 bg-green-600 text-white rounded"
+      >
+        Upvote
+      </button>
+      <span className="text-sm">{ans.votes || 0} votes</span>
+      <button
+        onClick={() => vote(ans._id, 'downvote')}
+        className="px-2 py-1 bg-red-600 text-white rounded"
+      >
+        Downvote
+      </button>
+    </div>
+
+    <span className="text-sm text-gray-500">
+      by {ans.authorId?.name || 'Anonymous'}
+    </span>
+  </div>
+))}
 
       {/* Add Answer Form */}
       <form onSubmit={handleAnswerSubmit} className="mt-6">

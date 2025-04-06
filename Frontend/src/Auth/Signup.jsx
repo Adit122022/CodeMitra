@@ -27,7 +27,7 @@ const Signup = () => {
 
       localStorage.setItem('token', token);
 
-      navigate('/');
+      navigate('/home');
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || 'Signup failed');
