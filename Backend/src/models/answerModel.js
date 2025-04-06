@@ -20,6 +20,18 @@ const answerSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    votedUsers: [
+        {
+          userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+          },
+          voteType: {
+            type: String,
+            enum: ['up', 'down'],
+          },
+        }
+      ],      
     createdAt: {
       type: Date,
       default: Date.now,

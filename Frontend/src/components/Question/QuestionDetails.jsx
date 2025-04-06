@@ -40,16 +40,16 @@ const QuestionDetail = () => {
       );
 
       setNewAnswer('');
-      fetchQuestion(); // Refresh the question with new answer
+      fetchQuestion(); 
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
     }
   };
-console.log(question)
   const vote = async (answerId, type) => {
     try {
+         console.log(answerId, type)
       const res = await axios.post(
         `http://localhost:5000/api/answers/${answerId}/${type}`,
         {},
@@ -59,7 +59,7 @@ console.log(question)
           },
         }
       );
-      fetchQuestion(); // refresh the answers with updated votes
+      fetchQuestion(); 
     } catch (err) {
       console.error(err);
     }
@@ -80,14 +80,14 @@ console.log(question)
 
     <div className="flex items-center gap-3 mt-2">
       <button
-        onClick={() => vote(ans._id, 'upvote')}
+        onClick={() => vote(ans._id, 'up')}
         className="px-2 py-1 bg-green-600 text-white rounded"
       >
         Upvote
       </button>
       <span className="text-sm">{ans.votes || 0} votes</span>
       <button
-        onClick={() => vote(ans._id, 'downvote')}
+        onClick={() => vote(ans._id, 'down')}
         className="px-2 py-1 bg-red-600 text-white rounded"
       >
         Downvote

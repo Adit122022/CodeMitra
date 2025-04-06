@@ -1,7 +1,7 @@
 const answerModel = require('../models/answerModel');
 const questionModel = require('../models/questionModel');
 
-exports.addAnswer = async (req, res) => {
+module.exports.addAnswer = async (req, res) => {
   try {
     const { questionId } = req.params;
     const { content } = req.body;
@@ -23,7 +23,7 @@ exports.addAnswer = async (req, res) => {
   }
 };
 
-exports.updateAnswer = async (req, res) => {
+module.exports.updateAnswer = async (req, res) => {
   try {
     const { answerId } = req.params;
     const { content } = req.body;
@@ -42,7 +42,7 @@ exports.updateAnswer = async (req, res) => {
   }
 };
 
-exports.deleteAnswer = async (req, res) => {
+module.exports.deleteAnswer = async (req, res) => {
   try {
     const { answerId } = req.params;
 
@@ -59,48 +59,43 @@ exports.deleteAnswer = async (req, res) => {
   }
 };
 
-exports.voteAnswer = async (req, res) => {
-  try {
-    const { answerId } = req.params;
-    const { voteType } = req.body; // "up" or "down"
+module.exports.voteAnswer = async (req, res) => {
+    try {
+      const { answerId ,type } = req.params;// 'up' or 'down'
+      const userId = req.user._id;
+    // console.log(type);
+      if (!['up', 'down'].includes(type)) {
+        return res.status(400).json({ message: 'Invalid vote type' });
+      }
+  
+      const answer = await answerModel.findById(answerId);
+      if (!answer) return res.status(404).json({ message: 'Answer not found' });
+  
+      const existingVote = answer.votedUsers.find(
+        (v) => v.userId.toString() === userId.toString()
+      );
+  
+      if (existingVote) {
+        if (existingVote.voteType === type) {
+          return res.status(400).json({ message: `You've already ${type}voted this answer.` });
+        }
+  
+        // Change vote
+        answer.votes += type === 'up' ? 1 : -1;
+        existingVote.voteType = type;
+      } else {
+        // New vote
+        answer.votes += type === 'up' ? 1 : -1;
+        answer.votedUsers.push({ userId, type});
+      }
+  
+      await answer.save();
+      res.status(200).json({ message: 'Vote recorded', votes: answer.votes });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+  
 
-    const answer = await answerModel.findById(answerId);
-    if (!answer) return res.status(404).json({ message: 'Answer not found' });
-
-    answer.votes += voteType === 'up' ? 1 : -1;
-    await answer.save();
-
-    res.status(200).json(answer);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
 
 
-exports.upvoteAnswer = async function (req, res) {
-  try {
-    const answer = await answerModel.findById(req.params.id);
-    if (!answer) return res.status(404).json({ message: 'Answer not found' });
-
-    answer.votes = (answer.votes || 0) + 1;
-    await answer.save();
-
-    res.json({ message: 'Upvoted', votes: answer.votes });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
-
-exports.downvoteAnswer = async function (req, res) {
-  try {
-    const answer = await answerModel.findById(req.params.id);
-    if (!answer) return res.status(404).json({ message: 'Answer not found' });
-
-    answer.votes = (answer.votes || 0) - 1;
-    await answer.save();
-
-    res.json({ message: 'Downvoted', votes: answer.votes });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
