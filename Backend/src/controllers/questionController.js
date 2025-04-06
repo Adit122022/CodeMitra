@@ -24,6 +24,7 @@ module.exports.Create = async (req, res) => {
 module.exports.getAllQuestion =  async (req, res) => {
     try {
         const questions = await questionModel.find().populate('authorId', 'name'); 
+        // console.log(questions);
         res.json(questions);
     } catch (error) {
         res.status(500).json({ message: error.message });
