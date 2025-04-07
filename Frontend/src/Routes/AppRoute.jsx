@@ -9,7 +9,6 @@ import Profile from '../components/Pages/Profile';
 import ProtectedRoute from '../Others/ProtectedRoute';
 
 const AppRoute = () => {
-  const isLoggedIn = localStorage.getItem('token');
   return (
   <BrowserRouter>
   <Routes>
