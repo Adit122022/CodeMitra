@@ -6,18 +6,19 @@ import AskQuestion from '../components/Pages/AskQuestion';
 import Login from '../Auth/Login';
 import Home from '../components/Pages/Home';
 import Profile from '../components/Pages/Profile';
+import ProtectedRoute from '../Others/ProtectedRoute';
 
 const AppRoute = () => {
   const isLoggedIn = localStorage.getItem('token');
   return (
   <BrowserRouter>
   <Routes>
-    <Route path='/' element={<Signup/>}/>
+    <Route path='/' element={<ProtectedRoute>  <Home/> </ProtectedRoute>}/>
     <Route path="/login" element={<Login />} />
-    <Route path="/profile" element={<Profile />} />
-    <Route path="/home" element={<Home />} />
-    <Route path="/questions/:id" element={<QuestionDetail />} />
-    <Route path="/ask" element={isLoggedIn ? <AskQuestion /> : <Navigate to="/login" />} />
+    <Route path="/signup" element={<Signup />} />
+    <Route path="/profile" element={<ProtectedRoute>  <Profile/> </ProtectedRoute>} />
+    <Route path="/questions/:id" element={<ProtectedRoute>  <QuestionDetail/> </ProtectedRoute>} />
+    <Route path="/ask" element={<ProtectedRoute>  <AskQuestion/> </ProtectedRoute>} />
 
   </Routes>
    </BrowserRouter>
