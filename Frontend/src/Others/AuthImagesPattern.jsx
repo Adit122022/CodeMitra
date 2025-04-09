@@ -30,7 +30,9 @@ const AuthImagePattern = ({ title, subtitle }) => {
                  {url=== "https://i.pinimg.com/736x/78/bd/a9/78bda9dec03e19a7e0e209f892b7db13.jpg" ? <img className="w-full h-full object-cover opacity-80" src={url} alt={`random-card-${i}`} /> :""}
                   </div>
                   {/* Back Face */}
-                  <div className="absolute inset-0 bg-gray-200 text-white rounded-2xl flex items-center justify-center rotate-y-180 overflow-hidden backface-hidden">
+                  <div className={`absolute inset-0 bg-gray-200 text-white rounded-2xl flex items-center justify-center  overflow-hidden backface-hidden 
+                    ${url=== "https://i.pinimg.com/736x/78/bd/a9/78bda9dec03e19a7e0e209f892b7db13.jpg" ? "rotate-y-180"   :"rotate-y-180"}
+                    `}>
                    <img className="w-full h-full object-cover opacity-80" src={url} alt={`random-card-${i}`} />
                   </div>
                 </div>

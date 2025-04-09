@@ -17,7 +17,9 @@ const Login = () => {
   const handleSubmit  = async (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.password) {
+
+    console.log(formData)
+    if (!formData.email || !formData.password) {
       return setError('All fields are required');
     }
     
@@ -59,9 +61,9 @@ const Login = () => {
       {error && <p className="text-red-500 text-sm text-center">{error}</p>}
 
 
-        <div className="form-control">
+        <div className="form-control ">
           <label className="label">
-            <span className="label-text font-medium">Email</span>
+            <span className="label-text font-medium mb-3">Email</span>
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -79,9 +81,9 @@ const Login = () => {
           </div>
         </div>
 
-        <div className="form-control">
+        <div className="form-control ">
           <label className="label">
-            <span className="label-text font-medium">Password</span>
+            <span className="label-text font-medium mb-3">Password</span>
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
