@@ -27,7 +27,7 @@ const AuthImagePattern = ({ title, subtitle }) => {
                 <div className="absolute inset-0 rounded-2xl transition-transform  duration-700 transform group-hover:rotate-y-180 [transform-style:preserve-3d]">
                   {/* Front Face */}
                   <div className="absolute inset-0 bg-primary/10 rounded-2xl flex items-center justify-center backface-hidden animate-pulse">
-                 
+                 {url=== "https://i.pinimg.com/736x/78/bd/a9/78bda9dec03e19a7e0e209f892b7db13.jpg" ? <img className="w-full h-full object-cover opacity-80" src={url} alt={`random-card-${i}`} /> :""}
                   </div>
                   {/* Back Face */}
                   <div className="absolute inset-0 bg-gray-200 text-white rounded-2xl flex items-center justify-center rotate-y-180 overflow-hidden backface-hidden">
