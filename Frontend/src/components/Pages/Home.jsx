@@ -18,13 +18,20 @@ const Home = () => {
       .catch(err => console.log(err));
   }, []);
 
-  const handleSearch = (value) => {
+  const handleSearch = async (value) => {
     setSearch(value);
-    const filtered = questions.filter(q =>
-      q.title.toLowerCase().includes(value.toLowerCase()) ||
-      q.body.toLowerCase().includes(value.toLowerCase())
-    );
-    setFilteredQuestions(filtered);
+
+    if (value.trim() === '') {
+      setFilteredQuestions(questions);
+      return;
+    }
+
+    try {
+      const res = await axios.get(`http://localhost:5000/api/search?q=${value}`);
+      setFilteredQuestions(res.data);
+    } catch (err) {
+      console.error('Search failed:', err);
+    }
   };
 
   const handleSort = (type) => {
@@ -40,7 +47,7 @@ const Home = () => {
   };
 
   return (
-    <div className="">
+    <div>
       <div className="w-screen h-16 bg-white shadow-md">
         <Navbar />
       </div>
@@ -49,7 +56,7 @@ const Home = () => {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-4">
           <h1 className="text-2xl font-bold">All Questions</h1>
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">
-         <SearchBar/>
+            <SearchBar value={search} onSearch={handleSearch} />
             <select
               onChange={(e) => handleSort(e.target.value)}
               className="p-2 border border-gray-300 rounded"
