@@ -24,7 +24,7 @@ const AskQuestion = () => {
           }
         }
       );
-      navigate(`/questions/${res.data._id}`);
+      navigate(`/`);
     } catch (err) {
       console.error(err);
     }

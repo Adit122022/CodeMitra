@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Navbar from '../../Others/Navbar';
 import SearchBar from '../../Others/SearchBar';
 
 const Home = () => {
@@ -48,10 +47,6 @@ const Home = () => {
 
   return (
     <div>
-      <div className="w-screen h-16 bg-white shadow-md">
-        <Navbar />
-      </div>
-
       <div className="p-6 max-w-5xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-4">
           <h1 className="text-2xl font-bold">All Questions</h1>
@@ -65,12 +60,7 @@ const Home = () => {
               <option value="a-z">Sort A-Z</option>
               <option value="answers">Sort by Answers</option>
             </select>
-            <Link
-              to="/ask"
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 text-center"
-            >
-              Ask Question
-            </Link>
+          
           </div>
         </div>
 
@@ -84,10 +74,10 @@ const Home = () => {
               <Link
                 to={`/questions/${q._id}`}
                 key={q._id}
-                className="block p-4 bg-white shadow rounded hover:bg-blue-50 transition duration-200"
+                className="block p-4 shadow rounded hover:bg-blue-500/25 transition duration-200"
               >
-                <h3 className="text-lg font-semibold text-gray-800">{q.title}</h3>
-                <p className="text-sm text-gray-600 mt-1 line-clamp-2">{q.body}</p>
+                <h3 className="text-lg font-semibold text-gray-100">{q.title}</h3>
+                <p className="text-sm text-gray-200 mt-1 line-clamp-2">{q.body}</p>
                 <div className="flex items-center justify-between mt-3 text-xs text-gray-500">
                   <span>Asked by {q.author?.username || 'Anonymous'}</span>
                   <span>{new Date(q.createdAt).toLocaleDateString()}</span>
