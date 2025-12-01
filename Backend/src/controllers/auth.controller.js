@@ -40,7 +40,7 @@ export const singupController = async (req,res)=>{
 }
 
 export const loginController = async (req , res) => {
-    const {username , email , password} = req.body
+    const { email , password} = req.body
     try {
         console.log(req.body);
         
@@ -52,7 +52,6 @@ export const loginController = async (req , res) => {
         
         
         const user = await userService.loginUser({
-            username,
             email,
             password,
            
