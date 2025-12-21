@@ -1,7 +1,7 @@
 
-# StackWave 💡
+# CodeMitra 💡
 
-**StackWave** is a full-featured, community-driven Q&A platform inspired by Stack Overflow — built with **MERN stack**, **Tailwind CSS**, and powered by modern UI/UX. This platform is designed for developers to ask questions, share answers, collaborate, and grow together.
+**CodeMitra** is a full-featured, community-driven Q&A platform inspired by Stack Overflow — built with **MERN stack**, **Tailwind CSS**, and powered by modern UI/UX. This platform is designed for developers to ask questions, share answers, collaborate, and grow together.
 
 > 🚧 This project is currently under development by [Aditya Sharma](https://github.com/Adit122022). Stay tuned for awesome features!
 
@@ -9,7 +9,7 @@
 
 ## 🚀 Vision
 
-StackWave is more than just a Q&A site — it's a **collaborative space** for developers and learners.
+CodeMitra is more than just a Q&A site — it's a **collaborative space** for developers and learners.
 
 Planned future features include:
 
@@ -82,8 +82,8 @@ src/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Adit122022/StackWave2.git
-cd StackWave2
+git clone https://github.com/Adit122022/CodeMitra2.git
+cd CodeMitra2
 ````
 
 ### 2. Install Dependencies
@@ -171,7 +171,7 @@ This project is licensed under the [MIT License](LICENSE).
 🐙 [GitHub](https://github.com/Adit122022)
 🎓 BCA Graduate | Web Developer | React & Node Enthusiast
 
-> Building StackWave to help developers learn, collaborate, and grow together.
+> Building CodeMitra to help developers learn, collaborate, and grow together.
 > I’m open to feedback and collaboration opportunities. Feel free to reach out!
 
 ---
