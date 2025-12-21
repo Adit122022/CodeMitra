@@ -63,7 +63,7 @@ const Navbar = () => {
     <div className="flex h-screen z-40">
       <div className="flex-1">
         <nav className="bg-white dark:bg-gray-900 text-black dark:text-white p-3 flex items-center justify-between fixed top-0 left-0 w-full z-50 shadow-md">
-      
+
           {/* Left Section - Logo */}
           <div className="flex items-center space-x-2 text-center">
             <span className="">
@@ -73,15 +73,15 @@ const Navbar = () => {
                 size={20}
               />
             </span>
-            <div className="flex items-center cursor-pointer" 
-            onClick={() => navigate("/")}
+            <div className="flex items-center cursor-pointer"
+              onClick={() => navigate("/")}
             >
               <img src={icon} alt="" className="w-10 h-10" />
               <h1 className="text-lg">
-                Think<span className="text-orange-500 font-bold">Hub</span>
+                Code<span className="text-orange-500 font-bold">Mitra</span>
               </h1>
             </div>
-           
+
           </div>
 
           {/* Search Bar */}
@@ -95,7 +95,7 @@ const Navbar = () => {
 
           {/* Right Section */}
           <div className="flex items-center space-x-3 relative">
-           
+
             {user ? (
               <div className="relative" ref={dropdownRef}>
                 <button
