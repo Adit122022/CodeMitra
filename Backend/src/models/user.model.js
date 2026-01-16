@@ -6,8 +6,8 @@ import config from "../config/config.js"
 const userSchema = mongoose.Schema({
     username : {
         type : String,
-        unique : [true , "email is already exist"],
-        required : [true , "email is required"],
+        unique : [true , "username is already exist"],
+        required : [true , "username is required"],
         minLength: [3, 'Username must be at least 3 characters long'],
         maxLength: [15, 'Username must be at most 20 characters long'],
         trim: true,
@@ -16,6 +16,7 @@ const userSchema = mongoose.Schema({
     googleId : {
         type : String,
         unique : true,
+        sparse: true,
     },
     email : {
         type : String,
