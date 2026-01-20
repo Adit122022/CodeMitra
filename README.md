@@ -1,119 +1,206 @@
 
-# CodeMitra 💡
+---
 
-**CodeMitra** is a full-featured, community-driven Q&A platform inspired by Stack Overflow — built with **MERN stack**, **Tailwind CSS**, and powered by modern UI/UX. This platform is designed for developers to ask questions, share answers, collaborate, and grow together.
+# CodeMitra 🚀
 
-> 🚧 This project is currently under development by [Aditya Sharma](https://github.com/Adit122022). Stay tuned for awesome features!
+**AI-Assisted Developer Collaboration Platform**
+
+CodeMitra is a **full-stack developer platform** inspired by Stack Overflow, built to support **Q&A, real-time collaboration, AI-assisted coding, and secure user interactions**.
+The system is designed with a **backend-first, scalable architecture**, focusing on performance, security, and extensibility.
+
+> Live: [https://code-mitra-ad.vercel.app/](https://code-mitra-ad.vercel.app/)
+> Backend-focused system built and maintained by **Aditya Sharma**
 
 ---
 
-## 🚀 Vision
+## 🎯 Project Objective
 
-CodeMitra is more than just a Q&A site — it's a **collaborative space** for developers and learners.
+The goal of CodeMitra is to build a **scalable developer community platform** that supports:
 
-Planned future features include:
+* Structured Q&A workflows
+* Secure authentication and authorization
+* Real-time collaboration and communication
+* AI-assisted developer productivity
+* Performance optimization using caching and rate limiting
 
-- 💬 **Developer Groups** – Create or join topic-specific groups to discuss ideas and solve doubts together.
-- 🧑‍💻 **Collaborative Code Editor** – Practice, debug, and solve code problems together in real-time.
-- ⚙️ **AI-Powered Assistance** – Use GenAI to auto-suggest answers, summarize discussions, and generate code snippets.
-- 🔐 **Google Authentication** – Seamless sign-in via Google in addition to standard email/password.
-- 📱 **Mobile Responsive Design** – Optimized experience across all devices.
+This project emphasizes **backend engineering, distributed system concepts, and API design**.
 
 ---
 
-## ✨ Core Features (Completed & In Progress)
+## ✨ Key Features
 
-- 🧠 **Ask & Answer Questions** – Post technical questions and answer others in a structured format.
-- 🧾 **Tag System** – Categorize and search content easily with tags.
-- 👤 **User Authentication** – Secure sign up / login using JWT (Google login coming soon).
-- 🔍 **Search & Filters** – Search by keywords, filter by tags, sort by latest or popular.
-- 🌓 **Dark Mode** – Toggle between light and dark modes with persistence.
-- 🔐 **Role-Based Access Control** – Admin vs. regular user permissions.
-- 📊 **Follow System** – Follow users and get a personalized feed (Coming Soon).
-- 🛎️ **Notification System** – Get updates on interactions and followers (Planned).
-- 📥 **Media Uploads** – Upload profile images or attach media to posts (via Cloudinary/Supabase).
+### Core Platform
+
+* Ask & Answer system with structured questions and answers
+* Tag-based categorization and search
+* User profiles and role-based access (Admin / User)
+
+### Authentication & Security
+
+* JWT-based authentication
+* Google OAuth 2.0 using Passport.js
+* Role-Based Access Control (RBAC)
+* API rate limiting to prevent abuse
+* Secure headers via Helmet
+* Input validation using Express Validator
+
+### Performance & Scalability
+
+* Redis-based caching and session management
+* Optimized MongoDB schemas and indexes
+* Stateless REST APIs
+* Centralized error handling and logging
+
+### Real-Time & AI Capabilities
+
+* Real-time communication using Socket.io
+* AI-powered endpoints using Google Gemini APIs
+* Asynchronous workflows for AI responses and processing
+
+### Media & Utilities
+
+* Image uploads using ImageKit
+* Email notifications using Nodemailer
+* File handling via Multer
+
+---
+
+## 🧠 System Architecture (High Level)
+
+```
+Client (React + Vite)
+        |
+        v
+REST APIs (Express.js)
+        |
+Authentication & Authorization
+        |
+Business Logic Layer
+        |
+MongoDB  <---->  Redis (Cache / Sessions)
+        |
+External Services (AI, ImageKit, Email)
+```
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **React.js** (with Vite)
-- **React Router DOM**
-- **Zustand** – Lightweight state management
-- **Tailwind CSS + DaisyUI** – Utility-first modern UI
-- **Axios** – API calls
-- **Lucide / Heroicons** – Icon libraries
+
+* React 19 (Vite)
+* Redux Toolkit + Redux Persist
+* Tailwind CSS
+* Socket.io Client
+* Axios
+* Monaco Editor (Code Editor)
+* Radix UI / Headless UI
 
 ### Backend
-- **Node.js** / **Express.js**
-- **MongoDB** (via Mongoose ODM)
-- **JWT Authentication**
-- **Cloudinary / Supabase** – Media storage
-- **Multer** – File uploads
+
+* Node.js (ES Modules)
+* Express.js
+* MongoDB + Mongoose
+* Redis (ioredis)
+* Socket.io
+* Passport.js (Google OAuth)
+* JWT Authentication
+* Express Session
+* Express Rate Limit
+* Helmet, CORS, Morgan
+
+### External Services
+
+* Google Gemini (GenAI)
+* ImageKit (Media Storage)
+* Nodemailer (Email)
+* Judge0 API (Code Execution – configured)
 
 ---
 
-## 📁 Project Structure (Frontend)
+## 📁 Backend Structure (Simplified)
 
 ```
-
-src/
-├── assets/              # Images, icons, logos
-├── components/          # Reusable UI components
-│   ├── common/          # Buttons, inputs, etc.
-│   ├── sidebar/         # Sidebar elements
-│   └── question/        # Question-specific components
-├── context/             # Auth and theme context
-├── hooks/               # Custom React hooks
-├── layouts/             # Layout wrappers
-├── pages/               # All route pages
-├── routes/              # Route declarations
-├── stores/              # Zustand stores
-├── utils/               # Helper functions
-└── App.jsx              # Main entry point
-
-````
+backend/
+├── config/           # Environment & app configuration
+├── routes/           # API route definitions
+├── controllers/      # Request handling logic
+├── services/         # Passport, AI, Redis, external services
+├── models/           # MongoDB schemas
+├── middlewares/      # Auth, validation, rate limiting
+├── utils/            # Helper utilities
+├── app.js            # Express app configuration
+└── server.js         # Server entry point
+```
 
 ---
 
-## 📦 Installation & Setup
+## ⚙️ Environment Variables (Backend)
 
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/Adit122022/CodeMitra2.git
-cd CodeMitra2
-````
-
-### 2. Install Dependencies
-
-```bash
-npm install
-```
-
-### 3. Set Environment Variables
-
-Create a `.env` file in the root and add your API base URL:
+Create a `.env` file in `backend/`:
 
 ```env
-VITE_API_URL=http://localhost:5000/api
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/CodeMitra
+
+JWT_SECRET=your_secret
+JWT_EXPAIRE_IN=1d
+
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_PASSWORD=
+
+GOOGLE_CLIENT_ID=your_id
+GOOGLE_CLIENT_SECRET=your_secret
+GOOGLE_CALLBACK_URL=/api/auth/google/callback
+
+GEMINI_API_KEY=your_key
+
+IMAGEKIT_PUBLIC_KEY=your_key
+IMAGEKIT_PRIVATE_KEY=your_key
+IMAGEKIT_URL=your_url
+
+EMAIL_USER=your_email
+EMAIL_PASSWORD=your_password
+
+BASE_URL=http://localhost:5173
 ```
 
-### 4. Start the Development Server
+---
+
+## ▶️ Installation & Setup
+
+### 1. Clone Repository
 
 ```bash
+git clone https://github.com/Adit122022/CodeMitra.git
+cd CodeMitra
+```
+
+### 2. Backend Setup
+
+```bash
+cd backend
+npm install
+npm start
+```
+
+### 3. Frontend Setup
+
+```bash
+cd frontend
+npm install
 npm run dev
 ```
 
 ---
 
-## 🔐 Authentication Flow
+## 🔐 Authentication Flow (Simplified)
 
-* User registers or logs in using email and password.
-* JWT token is generated and stored via cookies (HttpOnly).
-* On frontend, routes are protected based on token presence and user role.
-* **Google OAuth integration coming soon**.
+1. User authenticates via Email/Password or Google OAuth
+2. JWT issued and stored securely
+3. Protected routes validated via middleware
+4. Role-based access enforced at API level
 
 ---
 
@@ -121,59 +208,40 @@ npm run dev
 
 | Feature                      | Status        |
 | ---------------------------- | ------------- |
-| Basic Ask/Answer Flow        | ✅ Completed   |
-| Tagging System               | ✅ Completed   |
-| Dark Mode                    | ✅ Completed   |
-| Sidebar Navigation           | ✅ Completed   |
-| Search & Filter by Tags      | ✅ Completed   |
-| Role-Based Admin Access      | ✅ Completed   |
-| Follow System                | ⏳ In Progress |
+| Core Q&A System              | ✅ Completed   |
+| JWT Authentication           | ✅ Completed   |
+| Google OAuth                 | ✅ Completed   |
+| Role-Based Access Control    | ✅ Completed   |
+| Redis Caching                | ✅ Completed   |
+| Rate Limiting & Security     | ✅ Completed   |
+| AI Integration               | ✅ Completed   |
+| Real-Time Collaboration      | ⏳ In Progress |
 | Notification System          | 📝 Planned    |
-| Google Authentication        | 📝 Planned    |
-| Developer Groups             | 📝 Planned    |
-| Collaborative Code Editor    | 📝 Planned    |
-| AI-Powered Chatbot & CodeGen | 📝 Planned    |
+| Collaborative Code Execution | 📝 Planned    |
 
 ---
 
-## 🤝 Contributing
+## 🧪 Engineering Focus Areas
 
-Want to contribute? Here’s how:
+* API design & security
+* Backend scalability & caching
+* Distributed system fundamentals
+* Async workflows
+* Clean architecture & separation of concerns
 
-```bash
-# 1. Fork the repository
-# 2. Create your feature branch
-git checkout -b feature/YourFeature
+---
 
-# 3. Commit your changes
-git commit -m "Add your message"
+## 👤 Author
 
-# 4. Push to the branch
-git push origin feature/YourFeature
-
-# 5. Create a Pull Request 🚀
-```
-
-Bug reports, feature suggestions, and PRs are always welcome!
+**Aditya Sharma**
+📧 Email: [adity122022@gmail.com](mailto:adity122022@gmail.com)
+🐙 GitHub: [https://github.com/Adit122022](https://github.com/Adit122022)
 
 ---
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE).
+MIT License
 
 ---
-
-## 🙋‍♂️ About Me
-
-**Aditya Sharma**
-📧 [Email](mailto:adity122022@gmail.com)
-🐙 [GitHub](https://github.com/Adit122022)
-🎓 BCA Graduate | Web Developer | React & Node Enthusiast
-
-> Building CodeMitra to help developers learn, collaborate, and grow together.
-> I’m open to feedback and collaboration opportunities. Feel free to reach out!
-
----
-
 
